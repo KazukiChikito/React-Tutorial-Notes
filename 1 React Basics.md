@@ -737,7 +737,7 @@ export default Contact;
 ```
 
 ```js
-NoPage.js
+// NoPage.js
 
 const NoPage = () => {
   return <h1>Error 404: PAGE NOT FOUND</h1>;
