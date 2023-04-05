@@ -903,7 +903,7 @@ h1 {
 
 Import the Sass file the same way as you imported a CSS file:
 
-```jss
+```js
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './my-sass.scss'
