@@ -272,7 +272,7 @@ function Garage() {
   return (
     <>
       <h1>Who lives in my Garage?</h1>
-      { /* Here the Car component is used inside the Garage component */ }
+      {/* Here the Car component is used inside the Garage component */}
       <Car />
     </>
   )
@@ -574,10 +574,6 @@ function Garage() {
 }
 ```
 
-## 7.5 Forms
-
->Note: forms will be introduced after React Hooks.
-
 ## 8 Router
 
 `create-react-app` doesn't include page routing.
@@ -670,10 +666,10 @@ const Layout = () => {
       <nav>
         <ul>
           <li>
-            { /*
+            {/*
             <Link> is used to set the URL.
             Anytime we link to an internal path, we will use <Link> instead of <a href="">.
-            */ }
+            */}
             <Link to="/">Home</Link>
           </li>
           <li>
@@ -685,7 +681,7 @@ const Layout = () => {
         </ul>
       </nav>
 
-      { /* <Outlet> renders the current route selected. */ }
+      {/* <Outlet> renders the current route selected. */}
       <Outlet />
     </>
   )
@@ -733,10 +729,6 @@ const NoPage = () => {
 
 export default NoPage
 ```
-
-## 8.5 Memo
-
->Note: memo will be introduced after React Hooks.
 
 ## 9 CSS Styling
 
@@ -788,7 +780,7 @@ const Header = () => {
 Since the inline CSS is written in a JS object, properties with hyphen separators, like `background-color`, must be written with camel case syntax:
 
 ```html
-{ /* Use backgroundColor instead of background-color */ }
+{/* Use backgroundColor instead of background-color */}
 <h1 style={{backgroundColor: "lightblue"}}>Hello Style!</h1>
 ```
 
