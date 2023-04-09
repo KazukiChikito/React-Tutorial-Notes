@@ -921,9 +921,10 @@ const initialTodos = [
     id: 3,
     title: "Learn React",
     finished: false,
-	}
+  }
 ]
 
+// The logic is placed outside the component
 const finishedLogic = (state, checkedTodo) => {
   return state.map((todo) => {
     if (todo.id === checkedTodo.id) {
@@ -941,7 +942,6 @@ function Todos() {
       {todos.map((todo) => (
         <div key={todo.id}>
           <label>
-            {/* There is a checked attribute here */}
             <input type="checkbox" checked={todo.finished}
               onChange={() => dispatch(todo)}
             />
@@ -957,14 +957,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<Todos />)
 ```
 
-Below is the same example, without using `useReducer`. Notice that the biggest difference is the `checked` attribute.
-
-I don't even know any example for the main usage of `useReducer` at this point. W3Schools refuse to elaborate further. 
-
-¯\\\_(ツ)_/¯ Enjoy!
+The above example, using `useState` instead of `useReducer`, for comparison:
 
 ```js
-import React from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom/client"
 
 const initialTodos = [
@@ -982,21 +978,25 @@ const initialTodos = [
     id: 3,
     title: "Learn React",
     finished: false,
-  }
+	}
 ]
 
-const finishedLogic = (todo) => {
-  todo.finished = !todo.finished
-}
-
 function Todos() {
+  const [todos, setTodos] = useState(initialTodos)
+
+  // The logic must be placed inside the component
+  const finishedLogic = (todo) => {
+    const newTodos = [...todos]
+    newTodos[todo.id - 1].finished = !todo.finished
+    setTodos(newTodos)
+  }
+
   return (
     <>
-      {initialTodos.map((todo) => (
+      {todos.map((todo) => (
         <div key={todo.id}>
           <label>
-            {/* There is no checked attribute here */}
-            <input type="checkbox" 
+            <input type="checkbox" checked={todo.finished}
               onChange={() => finishedLogic(todo)}
             />
             {todo.title}
