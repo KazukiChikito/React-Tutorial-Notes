@@ -452,6 +452,8 @@ By making these slight changes to `<textarea>` and `<select>`, React is able to 
 
 The `useEffect` Hook allows you to perform side effects in your components, for instance: fetching data, directly updating the DOM, and timers.
 
+### 1. Syntax
+
 `useEffect` accepts two arguments: 
 - A render function that gets executed on every render.
 - Dependencies, which are all variables that will get the function executed when any one of them changes.
@@ -519,7 +521,7 @@ So, to fix this issue, let's only run this effect on the initial render.
   }, []) // <- add empty brackets as a dependency
 ```
 
-### 1. Effect Cleanup
+### 2. Effect Cleanup
 Some effects require cleanup to reduce memory leaks.
 
 Timeouts, subscriptions, event listeners, and other effects that are no longer needed should be disposed.
@@ -753,34 +755,7 @@ The `useRef` Hook can be used to:
 
 ### 1. Does Not Cause Re-renders
 
-Here we use two `useState` Hooks: `inputValue` to input value, and `count` to count how many times our application renders:
-
-```js
-import React, { useState } from "react"
-import ReactDOM from "react-dom/client"
-
-function App() {
-  const [inputValue, setInputValue] = useState("")
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <input type="text" value={inputValue}
-        onChange={(event) => {
-          setCount((count) => ++count)
-          return setInputValue(event.target.value)
-        }}
-      />
-      <h1>Render Count: {count}</h1>
-    </>
-  )
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<App />)
-```
-
-But we can use a `useRef` Hook to replace the `count` Hook in the example above:
+We can use a `useRef` Hook to count how many times our application renders:
 
 ```js
 import React, { useState, useEffect, useRef } from "react"
@@ -811,13 +786,42 @@ When we initialize `useRef` we set the initial value for `current`: `useRef(0)`.
 
 >It's like doing this: `const count = {current: 0}`. We can access the count by using `count.current`.
 
+#### Example
+
+Same example from before, without using `useRef`. Here we replace the `count` `useRef` Hook with the `count` `useState` Hook:
+
+```js
+import React, { useState } from "react"
+import ReactDOM from "react-dom/client"
+
+function App() {
+  const [inputValue, setInputValue] = useState("")
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <input type="text" value={inputValue}
+        onChange={(event) => {
+          setCount((count) => ++count)
+          return setInputValue(event.target.value)
+        }}
+      />
+      <h1>Render Count: {count}</h1>
+    </>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(<App />)
+```
+
 ### 2. Accessing DOM Elements
 
 In general, we want to let React handles all DOM manipulation.
 
 But there are some instances where `useRef` can be used without causing issues.
 
-In React, we can add a `ref` attribute to an element to access it directly in the DOM.
+We can add a `ref` attribute to an element to access it directly in the DOM.
 
 ```js
 import React, { useRef } from "react"
@@ -876,11 +880,14 @@ root.render(<App />)
 ```
 
 ## 6 The `useReducer` Hook
+
 The `useReducer` Hook is similar to the `useState` Hook.
 
 It allows for custom state logic.
 
 If you find yourself keeping track of multiple pieces of state that rely on complex logic, `useReducer` may be useful.
+
+### 1. Syntax
 
 `useReducer` accepts two arguments:
 
@@ -952,7 +959,7 @@ root.render(<Todos />)
 
 Below is the same example, without using `useReducer`. Notice that the biggest difference is the `checked` attribute.
 
-I don't even know the main usage of `useReducer` at this point. W3Schools refuse to elaborate further. 
+I don't even know any example for the main usage of `useReducer` at this point. W3Schools refuse to elaborate further. 
 ¯\\\_(ツ)_/¯ Enjoy!
 
 ```js
@@ -1103,7 +1110,7 @@ Now the `Todos` component only re-renders when the `todos` that are passed to it
 
 The `useCallback` Hook returns a *memoized* callback function.
 
->Think of *memoization* as caching a value so that it does not need to be recalculated.
+>Think of memoization as caching a value so that it does not need to be recalculated.
 
 This can improve performance by isolating resource intensive functions so that they will not automatically run on every render.
 
@@ -1228,7 +1235,7 @@ The `useMemo` Hook only runs when one of its dependencies update,  and this can 
 
 >The main difference between `useMemo` and `useCallback` is that `useMemo` returns a memoized **value** and `useCallback` returns a memoized **function**.
 
-### 1. Performance
+### 1. Problem
 
 The `useMemo` Hook can be used to keep expensive, resource intensive functions from needlessly running.
 
@@ -1287,7 +1294,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<App />)
 ```
 
-### 2. Using `useMemo`
+### 2. Solution
 
 To fix this performance issue, we can use `useMemo` to memoize the `expensiveCalculation` function. This will cause the function to only run when needed.
 
@@ -1344,6 +1351,8 @@ In the following code, we are fetching data in our `Home` component and displayi
 
 We will use the [JSONPlaceholder](https://jsonplaceholder.typicode.com) service to fetch fake data. This service is great for testing applications when there is no existing data.
 
+#### Example
+
 Use the JSONPlaceholder service to fetch fake "todo" items and display the titles on the page:
 
 ```js
@@ -1377,6 +1386,8 @@ root.render(<Home />)
 
 The fetch logic may be needed in other components as well, so we will extract that into a custom Hook.
 
+#### Example
+
 Move the fetch logic to a new file to be used as a custom Hook:
 
 ```js
@@ -1400,7 +1411,7 @@ export default useFetch
 ```
 
 ```js
-// indes.js
+// index.js
 
 import React from "react"
 import ReactDOM from "react-dom/client"
@@ -1422,8 +1433,6 @@ const Home = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<Home />)
 ```
-
-#### Explained
 
 We have created a new file called `useFetch.js` containing a function called `useFetch` which contains all of the logic needed to fetch our data.
 
