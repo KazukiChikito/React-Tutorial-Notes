@@ -960,6 +960,7 @@ root.render(<Todos />)
 Below is the same example, without using `useReducer`. Notice that the biggest difference is the `checked` attribute.
 
 I don't even know any example for the main usage of `useReducer` at this point. W3Schools refuse to elaborate further. 
+
 ¯\\\_(ツ)_/¯ Enjoy!
 
 ```js
