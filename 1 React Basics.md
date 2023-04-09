@@ -732,7 +732,7 @@ export default NoPage
 
 ## 9 CSS Styling
 
-There are many ways to style React with CSS, here we wukk look at three common ways:
+There are many ways to style React with CSS, here we will look at three common ways:
 
 - Inline styling
 - CSS stylesheets
