@@ -925,9 +925,9 @@ const initialTodos = [
 ]
 
 // The logic is placed outside the component
-const finishedLogic = (state, checkedTodo) => {
+const finishedLogic = (state, action) => {
   return state.map((todo) => {
-    if (todo.id === checkedTodo.id) {
+    if (todo.id === action.id) {
       return {...todo, finished: !todo.finished}
     }
     return todo
